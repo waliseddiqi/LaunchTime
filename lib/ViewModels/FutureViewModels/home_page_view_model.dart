@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:launchtime/DataModels/LaunchModel.dart';
 import 'package:launchtime/Services/api_service.dart';
-import 'package:launchtime/devdata.dart';
+
 import 'package:stacked/stacked.dart';
 
 class HomePageDataViewModel extends FutureViewModel<LaunchModel>{
@@ -12,6 +12,8 @@ class HomePageDataViewModel extends FutureViewModel<LaunchModel>{
   
   @override
   Future<LaunchModel> futureToRun()async {
+    ///This API is only for production 
+    ///We only use local json files for development
    //ApiServise apiServise = new ApiServise();
  // final response = await apiServise.getLaunch();
         String data = await DefaultAssetBundle.of(context)
