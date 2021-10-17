@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:launchtime/DataModels/LaunchModel.dart';
-import 'package:launchtime/ViewModels/card_view_model.dart';
+import 'package:launchtime/ViewModels/launch_card_view_model.dart';
 import 'package:launchtime/colors.dart';
 import 'package:stacked/stacked.dart';
 

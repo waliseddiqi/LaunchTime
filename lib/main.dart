@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:launchtime/HomePage.dart';
+import 'package:launchtime/LaunchPage.dart';
 import 'package:launchtime/colors.dart';
 
 void main() {

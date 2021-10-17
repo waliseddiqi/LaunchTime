@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:launchtime/AstronautPage.dart';
+import 'package:launchtime/EventsPage.dart';
+import 'package:launchtime/LaunchPage.dart';
+import 'package:launchtime/StationPage.dart';
 import 'package:launchtime/colors.dart';
 
 class DrawerBar extends StatelessWidget{
@@ -21,41 +26,55 @@ class DrawerBar extends StatelessWidget{
              children: [
               
               
-                  DrawerItems("launch.png","Launches"),
-               Padding(
-                 padding:  EdgeInsets.all(size.height/90),
-                 child: Container
-                 (height: size.height/14,
-                 
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
-                    borderRadius: BorderRadius.circular(size.height/90)
-                  ),
-                  child: Padding(
-                    padding:  EdgeInsets.all(size.height/90),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(                    padding:  EdgeInsets.all(size.height/90),
+                  DrawerItems("launch.png","Launches",(){
+                   Navigator.push(context,CupertinoPageRoute(builder: (context)=>HomePage()));
 
-                          child: SizedBox(
-                            height: size.height/45,
-                            child: Icon(Icons.event,color: Colors.white,))
-                        ),
-                        Padding(
-                                            padding:  EdgeInsets.all(size.height/90),
-
-                          child: Text("Events",style: TextStyle(fontSize: size.height/45,color: Colors.white)),
-                        )
-                      ],
+                  }),
+               InkWell(
+                 onTap: (){
+                   Navigator.push(context,CupertinoPageRoute(builder: (context)=>EventsPage()));
+                 },
+                 child: Padding(
+                   padding:  EdgeInsets.all(size.height/90),
+                   child: Container
+                   (height: size.height/14,
+                   
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).accentColor,
+                      borderRadius: BorderRadius.circular(size.height/90)
                     ),
-                  ),
-                 
+                    child: Padding(
+                      padding:  EdgeInsets.all(size.height/90),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(                    padding:  EdgeInsets.all(size.height/90),
+               
+                            child: SizedBox(
+                              height: size.height/45,
+                              child: Icon(Icons.event,color: Colors.white,))
+                          ),
+                          Padding(
+                                              padding:  EdgeInsets.all(size.height/90),
+               
+                            child: Text("Events",style: TextStyle(fontSize: size.height/45,color: Colors.white)),
+                          )
+                        ],
+                      ),
+                    ),
+                   
+                   ),
+                   
                  ),
-                 
                ),
-               DrawerItems("astronaut.png","Astronauts"),
-               DrawerItems("satellite.png","Stations"),
+               DrawerItems("astronaut.png","Astronauts",(){
+                   Navigator.push(context,CupertinoPageRoute(builder: (context)=>AstronautPage()));
+
+               }),
+               DrawerItems("satellite.png","Stations",(){
+                   Navigator.push(context,CupertinoPageRoute(builder: (context)=>StationsPage()));
+
+               }),
                
             
                    
@@ -74,7 +93,8 @@ class DrawerBar extends StatelessWidget{
 class DrawerItems extends StatelessWidget{
   final String iconData;
   final String text;
-  DrawerItems(this.iconData,this.text);
+  final Function ontap;
+  DrawerItems(this.iconData,this.text,this.ontap);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -83,7 +103,7 @@ class DrawerItems extends StatelessWidget{
                  padding:  EdgeInsets.all(size.height/90),
                  child: InkWell(
                    onTap: (){
-                     print("object");
+                     ontap();
                    },
                    child: Center(
                      child: Container

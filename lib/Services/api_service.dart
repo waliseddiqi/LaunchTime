@@ -1,26 +1,35 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 
-import 'package:http/http.dart'as http;
 import 'package:launchtime/Services/api_handler.dart';
 import 'package:launchtime/Services/exceptions.dart';
 
+//
 class ApiServise{
+  Future<Response> getDate(String url)async{
 
-  Future<http.Response> getLaunch()async{
+    Dio dio  = Dio();
+    DioCacheManager _dioCacheManager;
+    _dioCacheManager = DioCacheManager(CacheConfig());
 
-     var response;
+    Options _cacheOptions = buildCacheOptions(Duration(days: 1),options: Options(      headers: {
+        "Content-Type": "application/json",
+          
+      
+      }));
+   
+    dio.interceptors.add(_dioCacheManager.interceptor);
+    var response;
+  
     try {
-       response =  await http.get(Uri.parse("https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?is_crewed=false&include_suborbital=true&related=false&hide_recent_previous=false"),
-        headers: {
-         "Content-Type": "application/json",
-            
-        
-        }
+       response = await dio.get(url,
+       options: _cacheOptions
+       );
       
-      ).timeout(Duration(seconds: 15));
-      
-      response = await ApiHandler.handle(response);
+     response = await ApiHandler.handle(response);
+   
       return response;
    } on TimeoutException{
      //  SnackbarService snackbarService =locator<SnackbarService>();
@@ -36,4 +45,10 @@ class ApiServise{
     }
 
   }
+
+
+
+
+
+  
 }

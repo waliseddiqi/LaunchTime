@@ -1,5 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:launchtime/Services/exceptions.dart';
-import 'package:http/http.dart'as http;
+
 
 class ApiHandler{
 
@@ -7,16 +8,17 @@ class ApiHandler{
 
 
 
- static Future handle( http.Response httpResponse )async{
+ static Future handle(Response httpResponse )async{
+      
       switch (httpResponse.statusCode) {
       case 200:
       
         return httpResponse;
       case 400:
-        throw BadRequestException(httpResponse.body.toString());
+        throw BadRequestException("");
       case 401:
       case 403:
-        throw UnauthorisedException(httpResponse.body.toString());
+        throw UnauthorisedException("");
       case 500:
       // snackbarService.showCustomSnackBar(message: "Veri akışınız yavaşlandı",variant: SnackbarType.first);
         throw BadRequestException("");

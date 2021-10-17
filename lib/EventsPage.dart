@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:launchtime/DataModels/LaunchModel.dart';
+import 'package:launchtime/DataModels/EventsModel.dart';
+import 'package:launchtime/ViewModels/FutureViewModels/events_page_view_model.dart';
 import 'package:launchtime/colors.dart';
-import 'package:launchtime/components/Card.dart';
+import 'package:launchtime/components/LaunchCard.dart';
 import 'package:launchtime/components/DrawerBar.dart';
+import 'package:launchtime/components/EventsCard.dart';
 import 'package:stacked/stacked.dart';
 
-import 'ViewModels/FutureViewModels/home_page_view_model.dart';
+import 'ViewModels/FutureViewModels/launch_page_view_model.dart';
 
-class HomePage extends StatelessWidget{
+class EventsPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,22 +24,23 @@ class HomePage extends StatelessWidget{
          backgroundColor: Theme.of(context).primaryColor,
        ),
        drawer:DrawerBar(),
-       body:  ViewModelBuilder<HomePageDataViewModel>.reactive(
-            viewModelBuilder: () => HomePageDataViewModel(context),
+       body:  ViewModelBuilder<EventsPageDataViewModel>.reactive(
+            viewModelBuilder: () => EventsPageDataViewModel(context),
 
             builder: (context, model, child) =>
             model.isBusy?Center(child: CircularProgressIndicator(),):
           Center(
             
            child: Container(
+             color: model.color??Colors.white,
              child: PageView.builder(
                physics: BouncingScrollPhysics(),
                scrollDirection: Axis.horizontal,
                itemCount:model.data==null?0: model.data!.results!.length,
                
                itemBuilder: (context,index){
-               Results results = model.data!.results![index];
-               return  AnimatedHideSection(child: LaunchCard(launchData: results));
+               EventResults results = model.data!.results![index];
+               return EventCard(launchData: results);
              }),
            ),
          ),
